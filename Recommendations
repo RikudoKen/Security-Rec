@@ -1,0 +1,39 @@
+Security Recommendations
+Name: Kevin Ly
+ID: 000921926
+1. What is your security recommendation? Why did you choose it?
+Recommendation: Secure storage for sensitive user data using encrypted storage mechanisms.
+Why: Our mobile application interacts with user information like tasks, events, and login credentials (Firebase authentication). Storing sensitive data like tokens and user preferences in plain text could expose it to attackers if the device is compromised. Encrypted storage ensures that user data remains secure even if unauthorized access occurs.
+
+2. Who does the recommendation benefit (end-user, developer, etc.)?
+End-users benefit the most from these recommendations because their sensitive data such as login details and personal information, is the data being protected from unauthorized access and breaches.
+
+3. When would the recommendation have to be implemented (based on how serious the security risk is)?
+This recommendation should be implemented immediately during development. Proper data storage practices are essential for securing user information and reducing risks of breaches.
+
+4. Why do you think your project needs your recommendation?
+Firebase authentication uses authentication tokens or user session data, which might be cached locally. Without an encryption, an attacker could easily exploit this information. Furthermore, if sensitive information (like personal notes or tasks) is stored in local storage, it could be easily accessed without encryption.
+
+5. How do you think your recommendation could be applied?
+The recommendation can be applied by integrating secure storage libraries. For React Native, we can use expo-secure-store since it’s better for more simple projects and works with encrypted databases.
+
+Example:
+import * as SecureStore from 'expo-secure-store';
+
+export const saveToSecureStore = async (key: string, value: string) => {
+  await SecureStore.setItemAsync(key, value);
+};
+
+export const getFromSecureStore = async (key: string) => {
+  return await SecureStore.getItemAsync(key);
+};
+
+// Example Usage
+await saveToSecureStore('userToken', 'abc123');
+const token = await getFromSecureStore('userToken');
+
+6. How feasible would the implementation be?
+1. The implementation is highly feasible because the expo-secure store is lightweight and works seamlessly with Expo apps.
+2. It requires minimal code changes to replace local storage with secure storage.
+3. No additional cost is required, as these libraries are open-source and widely used.
+
